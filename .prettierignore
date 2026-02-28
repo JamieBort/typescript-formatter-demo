@@ -1,8 +1,21 @@
-# Prevent Prettier from formatting installed dependencies
+# .prettierignore
+
+# Node modules
 node_modules
 
-# Prevent formatting compiled TypeScript output
+# Compiled TypeScript output
 dist
 
-# Temporarily preserve poor formatting
-# src/
+# Git/GitHub config
+.git
+.github
+.gitignore
+
+# IDE/editor config
+.vscode
+
+# Package and Prettier config
+package.json
+package-lock.json
+tsconfig.json
+.prettierrc
