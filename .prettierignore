@@ -1,0 +1,8 @@
+# Prevent Prettier from formatting installed dependencies
+node_modules
+
+# Prevent formatting compiled TypeScript output
+dist
+
+# Temporarily preserve poor formatting
+# src/
