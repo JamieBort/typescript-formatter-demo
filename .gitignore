@@ -1,0 +1,5 @@
+# Prevent GitHub from tracking dependencies
+node_modules
+
+# Prevent GitHub from tracking TypeScript output
+dist
