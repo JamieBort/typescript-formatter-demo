@@ -1,4 +1,4 @@
-// ./src/index.ts
+// ./src/index2.ts
 
 // Dramatic one-line object to demonstrate CI formatting
 service.addUser({ id: 3, name: "Charlie", email: "charlie@example.com", extraField: "demonstration", anotherField: 123 })
