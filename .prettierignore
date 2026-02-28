@@ -6,16 +6,7 @@ node_modules
 # Compiled TypeScript output
 dist
 
-# Git/GitHub config
-.git
+# GitHub config
+# This .github/ directory holds the yml file.
+# If it gets formatted with the current Prettier configuration, that will break this GitHub Workflow.
 .github
-.gitignore
-
-# IDE/editor config
-.vscode
-
-# Package and Prettier config
-package.json
-package-lock.json
-tsconfig.json
-.prettierrc

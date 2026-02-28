@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Run Prettier (auto-fix)
-        run: npm run format
+        run: npm run format:write
 
       - name: Commit changes if needed
         run: |

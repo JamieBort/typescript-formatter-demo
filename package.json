@@ -3,9 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"format": "prettier --write .",
-		"format:check": "prettier --check .",
-		"build": "tsc"
+		"format:write": "prettier . --write",
+		"format:check": "prettier . --check"
 	},
 	"devDependencies": {
 		"prettier": "^3.2.5",

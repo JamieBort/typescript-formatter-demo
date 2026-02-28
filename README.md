@@ -1,40 +1,49 @@
 # typescript-formatter-demo
 
-A minimal TypeScript project demonstrating automatic code formatting using Prettier and GitHub Actions.
+A minimal TypeScript project demonstrating an automated workflow using GitHub Actions.
 
-This repository shows how formatting can be enforced and auto-fixed in CI, even when developers commit poorly formatted code, without needing to run the formatter manually.
+This repository shows how a repeatable process can be enforced and executed in CI, even when developers do not manually run it before committing code.
+
+For the purposes of this demonstration, we're using formatting as the repeatable process. Other options include
+
+- linting
+- automated testing
+- build verification
+- security scanning
+- and more
+
 
 
 
 ## 📁 Project Structure
 
 ```
-
 typescript-formatter-demo/
 │
 ├── .github/
 │   └── workflows/
-│       └── format.yml          # GitHub Actions workflow for auto-formatting
-│
+│       └── format.yml          # GitHub Actions workflow definition
+├── .vscode/
+│   └── settings.json           # Used for this demo to disable format-on-save
 ├── src/
-│   └── index.ts                # Demo TypeScript file with intentionally dramatic formatting
+│   └── index.ts                # Demo TypeScript file
 │
 ├── package.json                # Project metadata and scripts
 ├── tsconfig.json               # TypeScript compiler configuration
-├── .prettierrc                 # Prettier configuration (use tabs for indentation)
-├── .prettierignore             # Files/folders ignored by Prettier
+├── .prettierrc                 # Prettier configuration
+├── .prettierignore             # Files and directories excluded from the formatting process
 └── package-lock.json           # Locked dependency versions
-
-````
+```
 
 
 
 ## 🚀 What This Project Demonstrates
 
-- TypeScript setup
-- Prettier configuration enforcing tab-based formatting
-- GitHub Actions workflow that auto-formats code and commits changes
-- Dramatic formatting changes on objects, arrays, and function calls to clearly show CI behavior
+- Setting up a GitHub Actions workflow that runs on push
+- Defining a repeatable automated process
+- Validating the process locally before relying on CI
+- Executing the process automatically in CI
+- Automatically committing updates if changes are required
 
 
 
@@ -46,54 +55,119 @@ typescript-formatter-demo/
 
 
 
-## 📦 Setup Instructions
+# 📦 Setup Instructions
 
-### 1️⃣ Install Dependencies
+The recommended order of operations:
 
-After cloning the repo:
+1. Install dependencies
+2. Verify the process works locally
+3. Commit and push
+4. Confirm the workflow runs remotely
+
+
+
+## 1️⃣ Install Dependencies
+
+After cloning the repository:
 
 ```bash
 npm install
-````
-
-This will generate and/or use `package-lock.json`.
-
-
-
-### 2️⃣ Run the Formatter Locally
-
-```bash
-npm run format
 ```
 
-This runs Prettier with auto-fix on all files.
+This installs all required development dependencies and generates the `package-lock.json` file.
 
-To check formatting without modifying files:
+
+
+## 2️⃣ Verify the Process Works Locally (Important)
+
+Clean install dependencies:
+
+```bash
+npm ci
+```
+
+
+Before relying on GitHub Actions, confirm that the defined process executes correctly on your local machine.
+
+
+To that end, rather than `npm install`, use `npm ci` instead. It is the command that GitHub Actions uses _every_ time the workflow is executed.
+
+
+### Check the process without modifying files
+
+For this tutorial specifically, run the following:
 
 ```bash
 npm run format:check
 ```
 
+This validates whether changes would be required.
 
 
-## 📝 Prettier Configuration
+
+### Execute the process locally
+
+For this tutorial specifically, run the following:
+
+```bash
+npm run format:write
+```
+
+This runs the configured automation according to the project settings.
+
+You should confirm this works locally before testing the workflow remotely.
+
+
+
+## 3️⃣ Create and Commit the Workflow File
+
+Ensure the workflow .yml file exists at:
+
+```
+.github/workflows/<workflow_file>.yml
+```
+
+If creating it for the first time:
+
+```bash
+git add .
+git commit -m "Add workflow definition"
+git push origin main
+```
+
+The workflow in this project is configured to run on:
+
+- Pushes to the `main` branch
+- Pull requests
+
+
+
+## 4️⃣ Verify the Workflow Runs Remotely
+
+After pushing to the `main` branch:
+
+1. Open your repository on GitHub
+2. Navigate to the **Actions** tab
+3. Confirm the workflow executes
+4. If changes were required, confirm that an automated commit is created
+
+
+
+# 📝 Tool Configuration
 
 File: `.prettierrc`
 
 ```json
 {
-  "useTabs": true
+	"useTabs": true
 }
 ```
 
-### What This Means
-
-* Indentation uses tabs
-* Any file with spaces, single-line objects, long function calls, or messy arrays will be reformatted
-* This makes formatting changes visually dramatic when the workflow runs
+This defines how the automated process behaves when it runs.
 
 
-## 🚫 Ignored Files
+
+# 🚫 Ignored Files
 
 File: `.prettierignore`
 
@@ -102,108 +176,52 @@ node_modules
 dist
 ```
 
-These folders are excluded from formatting because:
-
-* `node_modules` contains external dependencies
-* `dist` contains compiled output
-
-## ⚙️ Purpose of Each Config File
-
-| File                           | Purpose                                                        |
-| ------------------------------ | -------------------------------------------------------------- |
-| `package.json`                 | Defines project metadata, scripts, and dev dependencies        |
-| `tsconfig.json`                | Configures the TypeScript compiler                             |
-| `.prettierrc`                  | Configures Prettier formatting rules                           |
-| `.prettierignore`              | Lists files/folders Prettier should ignore                     |
-| `.github/workflows/format.yml` | Defines the CI workflow to auto-format code and commit changes |
-| `.vscode/settings.json`        | Installed for this demo to override behavior of my IDE setup.  |
+These folders are excluded from the automated process because they contain dependencies or generated output.
 
 
 
-## 🔁 GitHub Actions Workflow
+# 🔁 GitHub Actions Workflow
 
 File: `.github/workflows/format.yml`
 
-The workflow runs on:
-
-* Every push to `dev`
-* Every pull request
-
-It performs the following steps:
+The workflow:
 
 1. Checks out the repository
 2. Installs Node.js
 3. Installs dependencies with `npm ci`
-4. Runs Prettier with auto-fix
-5. Commits and pushes changes if formatting was updated
+4. Runs the configured process
+5. Commits changes if updates were made
 
 This ensures:
 
-* The repository remains consistently formatted
-* Developers do not need to manually format code
-* Formatting becomes part of the CI process
+- The repository remains consistent
+- The process is enforced automatically
+- Manual execution is optional but validated
 
 
 
-## 🧪 How to Observe the Formatter Behavior
+# 🎯 Why This Pattern Is Useful
 
-1. Create or edit `src/index.ts` with dramatic formatting:
-
-   * Single-line objects
-   * Single-line arrays
-   * Multi-parameter functions
-
-2. Push the branch
-
-3. Watch GitHub Actions run
-
-4. Observe an automatic commit that fixes indentation, splits long lines, and formats objects/arrays
+- Encourages automation over manual enforcement
+- Ensures consistent behavior across contributors
+- Reduces process drift
+- Moves repeatable tasks into CI
 
 
 
-## 🛠 TypeScript Build
+# 📌 Notes
 
-To compile the project:
-
-```bash
-npm run build
-```
-
-Compiled files go to:
-
-```
-dist/
-```
+- The workflow requires write permissions to commit changes.
+- Automated commits only occur for branches within the same repository (not forks).
+- The CI process runs independently of local editor settings.
 
 
-## 🎯 Why This Pattern Is Useful
 
-* Eliminates formatting debates
-* Ensures consistency across contributors
-* Reduces noisy formatting commits
-* Automates enforcement via CI
-* Demonstrates dramatic visual changes in code formatting
+# 🧠 Key Concept
 
-## 📌 Notes
+Treat repeatable processes as automation.
 
-* The workflow requires write permissions to commit formatting changes.
-* Auto-formatting only pushes changes for branches in the same repository (not forks).
-* Prettier formatting is enforced consistently in CI regardless of local editor settings.
+Validate locally.
+Enforce remotely.
+Keep the repository consistent.
 
-
-## 🔮 Next Steps (Future Expansion)
-
-This simple demo can be extended to:
-
-* Add ESLint
-* Split into frontend/backend
-* Convert into a monorepo
-* Add test workflows
-* Add branch protection rules
-
-
-## 🧠 Key Concept
-
-Formatting is treated as automation, not a developer responsibility.
-
-The CI pipeline enforces consistency so humans can focus on logic.
