@@ -1,1 +1,13 @@
-{	"name": "typescript-formatter-demo",	"version": "1.0.0",	"private": true,	"scripts": {		"format:write": "prettier . --write",		"format:check": "prettier . --check"	},	"devDependencies": {		"prettier": "^3.2.5",		"typescript": "^5.4.0"	}}
+{
+	"name": "typescript-formatter-demo",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"format:write": "prettier . --write",
+		"format:check": "prettier . --check"
+	},
+	"devDependencies": {
+		"prettier": "^3.2.5",
+		"typescript": "^5.4.0"
+	}
+}
