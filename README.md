@@ -55,7 +55,7 @@ typescript-formatter-demo/
 
 
 
-# 📦 Setup Instructions
+## 📦 Setup Instructions
 
 The recommended order of operations:
 
@@ -66,7 +66,7 @@ The recommended order of operations:
 
 
 
-## 1️⃣ Install Dependencies
+### 1️⃣ Install Dependencies
 
 After cloning the repository:
 
@@ -78,7 +78,7 @@ This installs all required development dependencies and generates the `package-l
 
 
 
-## 2️⃣ Verify the Process Works Locally (Important)
+### 2️⃣ Verify the Process Works Locally (Important)
 
 Clean install dependencies:
 
@@ -93,7 +93,7 @@ Before relying on GitHub Actions, confirm that the defined process executes corr
 To that end, rather than `npm install`, use `npm ci` instead. It is the command that GitHub Actions uses _every_ time the workflow is executed.
 
 
-### Check the process without modifying files
+#### Check the process without modifying files
 
 For this tutorial specifically, run the following:
 
@@ -105,7 +105,7 @@ This validates whether changes would be required.
 
 
 
-### Execute the process locally
+#### Execute the process locally
 
 For this tutorial specifically, run the following:
 
@@ -119,7 +119,7 @@ You should confirm this works locally before testing the workflow remotely.
 
 
 
-## 3️⃣ Create and Commit the Workflow File
+### 3️⃣ Create and Commit the Workflow File
 
 Ensure the workflow .yml file exists at:
 
@@ -142,7 +142,7 @@ The workflow in this project is configured to run on:
 
 
 
-## 4️⃣ Verify the Workflow Runs Remotely
+### 4️⃣ Verify the Workflow Runs Remotely
 
 After pushing to the `main` branch:
 
@@ -153,7 +153,7 @@ After pushing to the `main` branch:
 
 
 
-# 📝 Tool Configuration
+## 📝 Tool Configuration
 
 File: `.prettierrc`
 
@@ -167,7 +167,7 @@ This defines how the automated process behaves when it runs.
 
 
 
-# 🚫 Ignored Files
+## 🚫 Ignored Files
 
 File: `.prettierignore`
 
@@ -180,7 +180,7 @@ These folders are excluded from the automated process because they contain depen
 
 
 
-# 🔁 GitHub Actions Workflow
+## 🔁 GitHub Actions Workflow
 
 File: `.github/workflows/format.yml`
 
@@ -200,7 +200,7 @@ This ensures:
 
 
 
-# 🎯 Why This Pattern Is Useful
+## 🎯 Why This Pattern Is Useful
 
 - Encourages automation over manual enforcement
 - Ensures consistent behavior across contributors
@@ -209,7 +209,7 @@ This ensures:
 
 
 
-# 📌 Notes
+## 📌 Notes
 
 - The workflow requires write permissions to commit changes.
 - Automated commits only occur for branches within the same repository (not forks).
@@ -217,7 +217,7 @@ This ensures:
 
 
 
-# 🧠 Key Concept
+## 🧠 Key Concept
 
 Treat repeatable processes as automation.
 
